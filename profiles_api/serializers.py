@@ -33,3 +33,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
             password = validated_data.pop('password') #get password from validated_data
             instance.set_password(password) #set password
         return super().update(instance,validated_data) #return instance
+
+class ProfileFeedItemSerializer(serializers.ModelSerializer):
+    """Serializes profile feed items"""
+    class Meta:
+        model = models.ProfileFeedItem #model to be serialized
+        fields = ('id','user_profile','status_text','created_on') #fields to be serialized
+        extra_kwargs = {'user_profile':{'read_only':True}} #user_profile is read only
